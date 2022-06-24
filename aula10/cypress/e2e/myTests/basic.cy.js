@@ -14,7 +14,13 @@ describe('Cypress basics', () => {
             .should('be.equal', 'Campo de Treinamento').debug()//assertion
             .and('contain', 'Campo');//assertion
 
-        // cy.title().should('be.equal','Campo de ');//assertion
+            cy.title().then(title=>{ ///pega o titulo da pagina
+                console.log(title);
+            });
+
+            cy.title().should(title=>{ ///pega o titulo da pagina
+                console.log(title);
+            });
 
         
     });
