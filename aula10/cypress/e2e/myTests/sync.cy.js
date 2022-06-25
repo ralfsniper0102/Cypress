@@ -1,5 +1,7 @@
 /// <reference types="Cypress" />
 
+const { should } = require("chai");
+
 describe('Esperas...', () => {
     before(() => { //before all tests
         cy.visit('https://www.wcaquino.me/cypress/componentes.html'); // hook
@@ -66,12 +68,26 @@ describe('Esperas...', () => {
         });
     });
 
-    it.only('Uso do Timeout 2', () => {
-        
-
+    it('Uso do Timeout 2', () => {
 
         cy.title().then(title=>{ ///pega o titulo da pagina
             console.log(title);
         });
+    });
+
+    it.only('Should vs Then', () => {
+
+        cy.get('#buttonListDOM').click();
+        cy.get('#lista li span').then($el=>{
+            //.should('have.lenght', 1);
+            expect($el).to.have.length(1)
+            //console.log($el);
+
+            //return 2
+            //should - fica executando - retrycess
+            //then - executa após receber o resultado
+
+        })
+        .and('not.have.id', 'buttonListDOM')
     });
 });
