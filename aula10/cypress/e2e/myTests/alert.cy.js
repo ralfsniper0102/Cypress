@@ -10,12 +10,15 @@ describe('Work with alerts', () => {
     });
 
 
-    it('Alert', () => {
-        cy.get('#alert').click();
-        //cy.get('#resultado').should('contain', 'Alert!');
-        cy.on('window:alert', str => {
-            expect(str).to.equal('Alert Simples');
-        });
+    it.only('Alert', () => {
+        // cy.get('#alert').click();
+        // //cy.get('#resultado').should('contain', 'Alert!');
+        // cy.on('window:alert', str => {
+        //     expect(str).to.equal('Alert Simples');
+        // });
+
+        cy.ClickAlert('#alert', 'Alert Simples');
+
         cy.window().then(win => {
             cy.stub(win, 'alert').as('alert');
         });
@@ -59,7 +62,7 @@ describe('Work with alerts', () => {
         cy.get('#confirm').click();
     });
 
-    it.only('Prompt', () => {
+    it('Prompt', () => {
         cy.window().then(win => {
             cy.stub(win, 'prompt').as('prompt').returns(42); //insere no prompt 
         });
