@@ -21,6 +21,10 @@ describe('Work with alerts', () => {
         food.forEach(food => {
             cy.get(`#formComida${food}`).click();
         });
+
+        // cy.get('#formComidaFavorita').click({multiple: true});//multiple selects
+
+        
         
     })
 });
