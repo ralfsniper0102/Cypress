@@ -2,7 +2,15 @@
 
 describe('Work with alerts', () => {
     before(() => { //before all tests
-         // hook
+        cy.visit('https://barrigareact.wcaquino.me/');
+
+        cy.get('[data-test="email"]').type('ralfsniper0102@gmail.com');
+        cy.get('[data-test="passwd"]').type('123456');
+
+        cy.get('.btn').click();
+
+        cy.get('.toast-message').should('exist');
+        cy.get('.toast-message').should('contain', 'Bem vindo, Rafael Araújo da Silva!');
 
     });
 
@@ -20,16 +28,14 @@ describe('Work with alerts', () => {
         cy.get('.btn').click();
     });
 
-    it.only('login', () => {
-        cy.visit('https://barrigareact.wcaquino.me/');
+    it.only('criar conta', () => {
+        cy.get('[data-test="menu-settings"]').click();
+        
+        cy.get('[href="/contas"]').click();
 
-        cy.get('[data-test="email"]').type('ralfsniper0102@gmail.com');
-        cy.get('[data-test="passwd"]').type('123456');
-
+        cy.get('[data-test="nome"]').type('Conta Teste');
         cy.get('.btn').click();
-
         cy.get('.toast-message').should('exist');
-        cy.get('.toast-message').should('contain', 'Bem vindo, Rafael Araújo da Silva!');
     });
 });
 
