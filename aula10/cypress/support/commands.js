@@ -24,11 +24,44 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+import loc from '../support/locators'; // Importa o arquivo de locators
 
-Cypress.Commands.add('ClickAlert', (locator, message) => {
+
+Cypress.Commands.add('clickAlert', (locator, message) => {
     cy.get(locator).click();
-    
+
     cy.on('window:alert', str => {
         expect(str).to.equal(message);
     });
+});
+
+Cypress.Commands.add('login', (email, password) => {
+    cy.get(loc.LOGIN.USER).type(email);
+    cy.get(loc.LOGIN.PASSWORD).type(password);
+    cy.get(loc.LOGIN.BTN_LOGIN).click();
+});
+
+Cypress.Commands.add('criarTaxa', (nome) => {
+    cy.acessarMenuConta();
+    
+
+    cy.get(loc.CRIAR_CONTA.NOME).type('Conta Teste');
+    cy.get(loc.CRIAR_CONTA.BTN_CRIAR_CONTA).click();
+    cy.get(loc.CRIAR_CONTA.MESSAGE).should('exist');
+});
+
+Cypress.Commands.add('criarConta', (nome) => {
+    cy.get(loc.CRIAR_CONTA.OPEN_MENU_CRIAR_CONTA).click();
+
+    cy.get(loc.CRIAR_CONTA.LINK_CRIAR_CONTA).click();
+
+    cy.get(loc.CRIAR_CONTA.NOME).type(nome);
+    cy.get(loc.CRIAR_CONTA.BTN_CRIAR_CONTA).click({force: true});
+    cy.get(loc.CRIAR_CONTA.MESSAGE).should('exist');
+});
+
+Cypress.Commands.add('resetar', () => {
+    cy.get(loc.MENU.OPEN_MENU).click();
+    cy.get(loc.MENU.RESETAR).click();
+
 });
