@@ -27,13 +27,13 @@
 import loc from '../support/locators'; // Importa o arquivo de locators
 
 
-Cypress.Commands.add('clickAlert', (locator, message) => {
-    cy.get(locator).click();
+// Cypress.Commands.add('clickAlert', (locator, message) => {
+//     cy.get(locator).click();
 
-    cy.on('window:alert', str => {
-        expect(str).to.equal(message);
-    });
-});
+//     cy.on('window:alert', str => {
+//         expect(str).to.equal(message);
+//     });
+// });
 
 Cypress.Commands.add('login', (email, password) => {
     cy.get(loc.LOGIN.USER).type(email);
@@ -44,10 +44,9 @@ Cypress.Commands.add('login', (email, password) => {
 Cypress.Commands.add('criarTaxa', (nome) => {
     cy.acessarMenuConta();
     
-
     cy.get(loc.CRIAR_CONTA.NOME).type('Conta Teste');
     cy.get(loc.CRIAR_CONTA.BTN_CRIAR_CONTA).click();
-    cy.get(loc.CRIAR_CONTA.MESSAGE).should('exist');
+    //cy.get(loc.CRIAR_CONTA.MESSAGE).should('exist');
 });
 
 Cypress.Commands.add('criarConta', (nome) => {
@@ -57,7 +56,7 @@ Cypress.Commands.add('criarConta', (nome) => {
 
     cy.get(loc.CRIAR_CONTA.NOME).type(nome);
     cy.get(loc.CRIAR_CONTA.BTN_CRIAR_CONTA).click({force: true});
-    cy.get(loc.CRIAR_CONTA.MESSAGE).should('exist');
+    //cy.get(loc.CRIAR_CONTA.MESSAGE).should('exist');
 });
 
 Cypress.Commands.add('resetar', () => {

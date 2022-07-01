@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
 
 import loc from '../../../support/locators'; // Importa o arquivo de locators
-
+import '../../../support/commandsConta'; // Importa o arquivo de commandsConta
 
 describe('Work with alerts', () => {
     before(() => { //before all tests
