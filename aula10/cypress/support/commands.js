@@ -43,7 +43,7 @@ Cypress.Commands.add('login', (email, password) => {
 
 Cypress.Commands.add('criarTaxa', (nome) => {
     cy.acessarMenuConta();
-    
+
     cy.get(loc.CRIAR_CONTA.NOME).type('Conta Teste');
     cy.get(loc.CRIAR_CONTA.BTN_CRIAR_CONTA).click();
     //cy.get(loc.CRIAR_CONTA.MESSAGE).should('exist');
@@ -55,7 +55,7 @@ Cypress.Commands.add('criarConta', (nome) => {
     cy.get(loc.CRIAR_CONTA.LINK_CRIAR_CONTA).click();
 
     cy.get(loc.CRIAR_CONTA.NOME).type(nome);
-    cy.get(loc.CRIAR_CONTA.BTN_CRIAR_CONTA).click({force: true});
+    cy.get(loc.CRIAR_CONTA.BTN_CRIAR_CONTA).click({ force: true });
     //cy.get(loc.CRIAR_CONTA.MESSAGE).should('exist');
 });
 
@@ -78,4 +78,16 @@ Cypress.Commands.add('getToken', (user, passwd) => {
         .then(token => {  ///salva o token
             return token;
         });
+});
+
+Cypress.Commands.add('resetRest', () => {
+    cy.getToken('ralfsniper0102@gmail.com', '123456').then(token => {
+        cy.request({
+            method: 'GET',
+            url: 'https://barrigarest.wcaquino.me/reset',
+            headers: { Authorization: `JWT ${token}` }
+        })
+
+    })
+
 });
