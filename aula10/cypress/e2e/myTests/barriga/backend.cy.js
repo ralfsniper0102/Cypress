@@ -2,9 +2,14 @@
 
 
 
-describe('Work with alerts', () => {
-    before(() => { //before all tests
+describe('Backend', () => {
+    let token;
 
+    before(() => { //before all tests
+        cy.getToken('ralfsniper0102@gmail.com', '123456')//pega o token
+            .then(tkn => {
+                token = tkn;  ///salva o token fora antes de qualquer teste
+            })
 
 
 
@@ -15,18 +20,25 @@ describe('Work with alerts', () => {
     });
 
     it('login', () => {
-        cy.request({ ///login
-            method: 'POST',
-            url: 'https://barrigarest.wcaquino.me/signin',
-            body: {
-                email: "ralfsniper0102@gmail.com",
-                redirecionar: false,
-                senha: "123456"
-            }
-        }).its('body.token').should('not.be.empty') //verifica se o token não está vazio
-        
-    });
 
-  
+
+        cy.request({
+            url: 'https://barrigarest.wcaquino.me/contas',
+            method: 'POST',
+            headers: {
+                Authorization: `JWT ${token}`
+            },
+            body: {
+                nome: "Conta via Rest"
+            }
+        }).as('response') //utilizar em outro lugar
+    });
+    cy.get('@response').then(res => { // outra forma de continuar
+        expect(res.status).to.eq(201);
+        expect(res.body).to.have.property('id');
+        expect(res.body).to.have.property('nome', 'Conta via Rest');
+    })
+
+
 });
 

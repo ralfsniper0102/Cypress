@@ -64,3 +64,18 @@ Cypress.Commands.add('resetar', () => {
     cy.get(loc.MENU.RESETAR).click();
 
 });
+
+Cypress.Commands.add('getToken', (user, passwd) => {
+    cy.request({ ///login
+        method: 'POST',
+        url: 'https://barrigarest.wcaquino.me/signin',
+        body: {
+            email: user,
+            redirecionar: false,
+            senha: passwd
+        }
+    }).its('body.token').should('not.be.empty') //verifica se o token não está vazio
+        .then(token => {  ///salva o token
+            return token;
+        });
+});
