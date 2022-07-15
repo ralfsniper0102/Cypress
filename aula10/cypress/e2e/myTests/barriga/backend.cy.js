@@ -5,15 +5,18 @@
 describe('Backend', () => {
     let token;
 
+    
+
     before(() => { //before all tests
         it('Login', () => {
         cy.getToken('ralfsniper0102@gmail.com', '123456')//pega o token
             .then(tkn => {
                 token = tkn;  ///salva o token fora antes de qualquer teste
             })
+            
         })
 
-
+        console.log(token);
 
     });
 
@@ -40,6 +43,7 @@ describe('Backend', () => {
             expect(res.body).to.have.property('id');
             expect(res.body).to.have.property('nome', 'Conta via Rest');
         })
+        
     });
     
 
